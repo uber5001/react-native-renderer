@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
+var bundler = require('./tools/bundler')
 
 gulp.task('default', ['build', 'watchbuild']);
 
@@ -59,3 +60,11 @@ gulp.task('initTypings', ['initDistAngular'], shell.task([
 	"cp angular/modules/angular2/*.d.ts src/angular2",
 	"cp -r angular/modules/angular2/typings src/angular2/typings"
 ]));
+
+gulp.task('build.app', ['init'], shell.task([
+	"./scripts/build_app.sh",
+]));
+
+gulp.task('main.jsbundle', function() {
+	return bundler.bundle();
+})

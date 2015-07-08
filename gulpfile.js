@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
-var bundler = require('./tools/bundler')
 
 gulp.task('default', ['build', 'watchbuild']);
 
@@ -66,5 +65,5 @@ gulp.task('build.app', ['init'], shell.task([
 ]));
 
 gulp.task('main.jsbundle', function() {
-	return bundler.bundle();
+	return require('./tools/bundler').bundle();
 })

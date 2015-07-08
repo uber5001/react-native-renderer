@@ -14,6 +14,7 @@ var desired = {
 
 //appium also closes a session after 60s, no reason to wait longer than that.
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+var APPIUM_INIT_TIMEOUT = 300000
 
 describe('todo-app', function() {
 	var browser;
@@ -27,7 +28,7 @@ describe('todo-app', function() {
 		.catch(function(err) {
 			console.log(err);
 		})
-	});
+	}, APPIUM_INIT_TIMEOUT);
 	it('should connect to appium without error', function(done) {
 		browser
 			.elementByXPath("//UIAApplication[1]/UIAWindow[1]")

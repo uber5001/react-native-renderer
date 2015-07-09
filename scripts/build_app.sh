@@ -5,8 +5,8 @@ sed -i '.old' -E '/^ *\/\/ *jsCodeLocation/ s/^ *\/\/*//' dist/iOS/AppDelegate.m
 
 ./node_modules/.bin/gulp main.jsbundle
 
-xctool -project dist/dist.xcodeproj/ -scheme dist -sdk iphonesimulator8.3 clean CONFIGURATION_BUILD_DIR=$(pwd)/dist/build
-xctool -project dist/dist.xcodeproj/ -scheme dist -sdk iphonesimulator8.3 build CONFIGURATION_BUILD_DIR=$(pwd)/dist/build
+xctool -project dist/dist.xcodeproj/ -scheme dist -sdk iphonesimulator8.4 clean CONFIGURATION_BUILD_DIR=$(pwd)/dist/build
+xctool -project dist/dist.xcodeproj/ -scheme dist -sdk iphonesimulator8.4 build CONFIGURATION_BUILD_DIR=$(pwd)/dist/build
 
 # revert AppDelegate.m back to the normal development version
 rm dist/iOS/AppDelegate.m

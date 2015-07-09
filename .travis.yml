@@ -1,4 +1,4 @@
 language: objective-c
-osx_image: beta-xcode6.3
+osx_image: xcode6.4
 install: npm install
 script: ./scripts/build_and_test.sh

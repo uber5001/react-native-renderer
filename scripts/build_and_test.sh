@@ -1,5 +1,5 @@
 ./scripts/build_app.sh
-./node_modules/appium/bin/appium.js --log-level info &
+./node_modules/appium/bin/appium.js --log-level debug &
 APPIUM_PID=$!
 
 #wait for appium server to accept http requests

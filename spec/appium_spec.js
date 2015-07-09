@@ -7,7 +7,7 @@ var path = require("path");
 var desired = {
 	"appium-version": "1.0",
 	platformName: "iOS",
-	platformVersion: "8.4",
+	platformVersion: "8.1",
 	deviceName: "iPhone Simulator",
 	app: path.resolve("dist/build/dist.app"),
 	launchTimeout: 120000

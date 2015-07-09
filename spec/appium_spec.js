@@ -10,11 +10,12 @@ var desired = {
 	platformVersion: "8.3",
 	deviceName: "iPhone Simulator",
 	app: path.resolve("dist/build/dist.app"),
+	launchTimeout: 120000
 };
 
 //appium also closes a session after 60s, no reason to wait longer than that.
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
-var APPIUM_INIT_TIMEOUT = 300000
+var APPIUM_INIT_TIMEOUT = 420000;
 
 describe('todo-app', function() {
 	var browser;

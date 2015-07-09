@@ -27,6 +27,7 @@ describe('todo-app', function() {
 		browser.init(desired).then(done)
 		.catch(function(err) {
 			console.log(err);
+			throw err;
 		})
 	}, APPIUM_INIT_TIMEOUT);
 	it('should connect to appium without error', function(done) {

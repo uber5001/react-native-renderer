@@ -1,0 +1,90 @@
+{
+  "name": "angular2",
+  "version": "2.0.0-alpha.30",
+  "description": "Angular 2 - a web framework for modern web apps",
+  "homepage": "https://github.com/angular/angular",
+  "bugs": {
+    "url": "https://github.com/angular/angular/issues"
+  },
+  "contributors": [
+    {
+      "name": "Alex Eagle",
+      "email": "alexeagle@google.com"
+    },
+    {
+      "name": "Chirayu Krishnappa",
+      "email": "chirayu@google.com"
+    },
+    {
+      "name": "Jeff Cross",
+      "email": "crossj@google.com"
+    },
+    {
+      "name": "Matias Niemela",
+      "email": "matsko@google.com"
+    },
+    {
+      "name": "Misko Hevery",
+      "email": "misko@google.com"
+    },
+    {
+      "name": "Rado Kirov",
+      "email": "radokirov@google.com"
+    },
+    {
+      "name": "Tobias Bosch",
+      "email": "tbosch@google.com"
+    },
+    {
+      "name": "Victor Savkin",
+      "email": "vsavkin@google.com"
+    },
+    {
+      "name": "Yegor Jbanov",
+      "email": "yjbanov@google.com"
+    },
+    {
+      "name": "Jeremy Elbourn",
+      "email": "jelbourn@google.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "traceur": "0.0.87",
+    "reflect-metadata": "0.1.0",
+    "rtts_assert": "2.0.0-alpha.30",
+    "rx": "2.5.1",
+    "zone.js": "0.5.2"
+  },
+  "devDependencies": {
+    "yargs": "2.3.*",
+    "gulp-sourcemaps": "1.3.*",
+    "gulp-traceur": "0.17.*",
+    "gulp": "^3.8.8",
+    "gulp-rename": "^1.2.0",
+    "through2": "^0.6.1"
+  },
+  "_id": "angular2@2.0.0-alpha.30",
+  "scripts": {},
+  "_shasum": "9b76a85afd0f0824f215384b5258e26e6b453cd6",
+  "_from": "angular2@>=2.0.0-alpha.25 <3.0.0",
+  "_resolved": "https://registry.npmjs.org/angular2/-/angular2-2.0.0-alpha.30.tgz",
+  "_npmVersion": "2.10.1",
+  "_nodeVersion": "0.12.4",
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "dist": {
+    "shasum": "9b76a85afd0f0824f215384b5258e26e6b453cd6",
+    "tarball": "http://registry.npmjs.org/angular2/-/angular2-2.0.0-alpha.30.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    }
+  ],
+  "directories": {},
+  "readme": "ERROR: No README data found!"
+}

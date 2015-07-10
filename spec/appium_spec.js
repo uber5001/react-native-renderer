@@ -5,16 +5,20 @@ var path = require("path");
 // var bundler = require("./bundle");
 
 var desired = {
-	"appium-version": "1.4.7",
-	platformName: "iOS",
-	platformVersion: "8.3",
+	browserName: '',
+	appiumVersion: "1.4.7",
 	deviceName: "iPhone Simulator",
-	app: path.resolve("dist/build/dist.app"),
-	launchTimeout: 1200000
+	deviceOrientation: "portrait",
+	// platformVersion: "8.3",
+	platformVersion: "8.2",
+	platformName: "iOS",
+	// app: path.resolve("dist/build/dist.app.zip"),
+	app: "sauce-storage:dist.app.zip",
+	launchTimeout: 600000
 };
-
-//appium also closes a session after 60s, no reason to wait longer than that.
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+// desired = {};
+//appium also closes a session after 60s, no reason to wait longer than that. (capability newCommandTimeout)
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 var APPIUM_INIT_TIMEOUT = 1200000;
 
 describe('todo-app', function() {
@@ -23,9 +27,26 @@ describe('todo-app', function() {
 	beforeEach(function(done) {
 		catchSpy = jasmine.createSpy("catchSpy");
 
-		browser = wd.promiseChainRemote("0.0.0.0", 4723);
+		browser = wd.promiseChainRemote("http://angular-ci:secret-sauce@ondemand.saucelabs.com/wd/hub", 80);
+		// browser = wd.promiseChainRemote("0.0.0.0", 4723);
+		browser.on('status', function(info) {
+		  console.log('status\n', arguments);
+		});
+		browser.on('command', function(eventType, command, response) {
+		  console.log('command\n', arguments);
+		});
+		browser.on('http', function(meth, path, data) {
+		  console.log('http\n', arguments);
+		});
 
-		browser.init(desired).then(done)
+		browser.init(desired)
+		.catch(function(err){
+			console.log(err);
+		})
+		.then(function() {
+			console.log(arguments);
+			done();
+		})
 		.catch(function(err) {
 			console.log(err);
 			throw err;
@@ -34,7 +55,9 @@ describe('todo-app', function() {
 	it('should connect to appium without error', function(done) {
 		browser
 			.elementByXPath("//UIAApplication[1]/UIAWindow[1]")
-			.catch(catchSpy)
+			.catch(function() {
+				console.log('CAUGHT\n', arguments);
+			})
 			.finally(function() {
 				expect(catchSpy).not.toHaveBeenCalled();
 				done();

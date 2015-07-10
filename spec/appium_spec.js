@@ -5,9 +5,9 @@ var path = require("path");
 // var bundler = require("./bundle");
 
 var desired = {
-	"appium-version": "1.0",
+	"appium-version": "1.4.7",
 	platformName: "iOS",
-	platformVersion: "8.1",
+	platformVersion: "8.3",
 	deviceName: "iPhone Simulator",
 	app: path.resolve("dist/build/dist.app"),
 	launchTimeout: 120000

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/uber5001/react-native-renderer.svg?branch=appium)](https://travis-ci.org/uber5001/react-native-renderer)
+
 Getting Started
 ---------------
 

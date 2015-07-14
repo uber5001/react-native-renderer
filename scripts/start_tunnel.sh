@@ -12,9 +12,9 @@ set -e
 # before_script:
 #   - curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
 
-CONNECT_URL="https://saucelabs.com/downloads/sc-4.3.7-linux.tar.gz"
+CONNECT_URL="https://saucelabs.com/downloads/sc-4.3.10-osx.zip"
 CONNECT_DIR="/tmp/sauce-connect-$RANDOM"
-CONNECT_DOWNLOAD="sc-4.3.7-linux.tar.gz"
+CONNECT_DOWNLOAD="sc-4.3.10-osx"
 
 CONNECT_LOG="$LOGS_DIR/sauce-connect"
 CONNECT_STDOUT="$LOGS_DIR/sauce-connect.stdout"
@@ -27,9 +27,6 @@ curl $CONNECT_URL -o $CONNECT_DOWNLOAD 2> /dev/null 1> /dev/null
 mkdir sauce-connect
 tar --extract --file=$CONNECT_DOWNLOAD --strip-components=1 --directory=sauce-connect > /dev/null
 rm $CONNECT_DOWNLOAD
-
-SAUCE_ACCESS_KEY=`echo $SAUCE_ACCESS_KEY | rev`
-
 
 ARGS=""
 

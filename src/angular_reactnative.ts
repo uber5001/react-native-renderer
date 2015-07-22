@@ -1,6 +1,6 @@
 'use strict';
 
-var shims = require('es6-shim');
+var shims = require('es6-map/implement');
 
 import {tagElementMap} from "./native_element";
 

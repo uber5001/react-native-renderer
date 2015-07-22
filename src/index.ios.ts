@@ -18,14 +18,13 @@ import {Component, View, Directive, NgFor} from 'angular2/angular2';
 	    "<TextField (topsubmitediting)='submit($event)' placeholder='new item' height=40 fontSize=30></TextField>" +
 		"<ScrollView automaticallyAdjustContentInsets=false flex=1><View>" +
 		  "<View *ng-for='#item of items' flexDirection='row' height=40 fontSize=20 alignItems='center'>" +
-		    "<switch (topchange)='remove(item)' width=61 height=31 paddingRight=10></switch>" +
+		    "<switch (topchange)='removeRaw(item)' width=61 height=31 paddingRight=10></switch>" +
 		    "<Text fontSize=20>{{item.label}}</Text>" +
 		  "</View>" +
 		"</View></ScrollView>",
 	directives: [NgFor]
 })
 class TodoAppComponent {
-
 	items = parksToVisit;
 
 	submit(event) {
@@ -34,6 +33,11 @@ class TodoAppComponent {
 		event.target.focus();
 	}
 	remove(item) {
+		item.label = "FADE_OUT_HACK";
+		var self = this;
+		setTimeout(function() { self.removeRaw(item);},2000);
+	}
+	removeRaw(item) {
 		this.items.splice(this.items.indexOf(item), 1)
 	}
 }

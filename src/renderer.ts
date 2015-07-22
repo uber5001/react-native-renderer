@@ -57,6 +57,11 @@ export class ReactNativeRenderer extends Renderer {
 			var element = fragment[i];
 			element.parent.removeAtIndex(element.parent.children.indexOf(element));
 		}
+		var item = fragment[0];
+		var text = item.children[1].children[0].props.text;
+		if (global.__removed_label) {
+			global.__removed_item = item;
+		}
 	}
 
 	hydrateView(viewRef: RenderViewRef) {
@@ -105,6 +110,21 @@ export class ReactNativeRenderer extends Renderer {
 
 	setText(viewRef: RenderViewRef, textNodeIndex: number, text: string) {
 		// console.log("setText", arguments);
+		if (text === "FADE_OUT_HACK") {
+			var view = resolveInternalReactNativeView(viewRef);
+			var element = view.boundTextNodes[textNodeIndex].parent.parent;
+			var start = Date.now();
+			function animate() {
+				var secondsPassed = (Date.now() - start) / 1000;
+				element.setProperty("height", Math.max(40 - 40 * secondsPassed * secondsPassed, 0));
+				element.setProperty("left", Math.max(300 * secondsPassed * secondsPassed, 0));
+				element.setProperty("opacity", Math.max(1 - secondsPassed * secondsPassed, 0));
+				if (secondsPassed <= 1)
+					requestAnimationFrame(animate);
+			} animate();
+			return;
+		}
+
 		var view = resolveInternalReactNativeView(viewRef);
 		view.boundTextNodes[textNodeIndex].setProperty("text", text);
 	}

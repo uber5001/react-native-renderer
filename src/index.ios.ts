@@ -18,7 +18,7 @@ import {Component, View, Directive, NgFor} from 'angular2/angular2';
 	    "<TextField (topsubmitediting)='submit($event)' placeholder='new item' height=40 fontSize=30></TextField>" +
 		"<ScrollView automaticallyAdjustContentInsets=false flex=1><View>" +
 		  "<View *ng-for='#item of items' flexDirection='row' height=40 fontSize=20 alignItems='center'>" +
-		    "<switch (topchange)='removeRaw(item)' width=61 height=31 paddingRight=10></switch>" +
+		    "<switch (topchange)='remove(item)' width=61 height=31 paddingRight=10></switch>" +
 		    "<Text fontSize=20>{{item.label}}</Text>" +
 		  "</View>" +
 		"</View></ScrollView>",
@@ -42,7 +42,7 @@ class TodoAppComponent {
 	}
 }
 
-var parksToVisit = [
+var parksToVisit = global.tmpParks = [
 	{"label": 'Bryce Canyon'},
 	{"label": 'Crater Lake'},
 	{"label": 'Death Valley'},

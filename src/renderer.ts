@@ -7,6 +7,7 @@ import {DOM} from 'angular2/src/dom/dom_adapter';
 import {resolveInternalReactNativeView, ReactNativeViewRef, ReactNativeView} from './view';
 import {ReactNativeElement, ReactNativeFragmentRef, resolveInternalReactNativeFragment} from './native_element';
 
+var precomputeStyle = require('precomputeStyle');
 
 export class ReactNativeRenderer extends Renderer {
 
@@ -116,13 +117,22 @@ export class ReactNativeRenderer extends Renderer {
 			var start = Date.now();
 			function animate() {
 				var secondsPassed = (Date.now() - start) / 1000;
-				element.setProperty("height", Math.max(40 - 40 * secondsPassed * secondsPassed, 0));
-				element.setProperty("left", Math.max(300 * secondsPassed * secondsPassed, 0));
-				element.setProperty("opacity", Math.max(1 - secondsPassed * secondsPassed, 0));
-				if (secondsPassed <= 1)
+				var transform = [
+					{ translateX: Math.max(300 * secondsPassed * secondsPassed, 0) },
+					{ scaleY: Math.max(1 - secondsPassed * secondsPassed, 0) }
+				];
+				var transformMatrix = precomputeStyle({ transform: transform }).transformMatrix;
+				element.setProperty("transformMatrix", transformMatrix);
+				// element.setProperty("opacity", Math.max(1 - secondsPassed * secondsPassed, 0));
+				if (secondsPassed <= 1) {
 					requestAnimationFrame(animate);
+				}
 			} animate();
 			return;
+		} else {
+			var view = resolveInternalReactNativeView(viewRef);
+			var element = view.boundTextNodes[textNodeIndex].parent.parent;
+			element.setProperty("transformMatrix", undefined);
 		}
 
 		var view = resolveInternalReactNativeView(viewRef);

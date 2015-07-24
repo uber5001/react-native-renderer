@@ -1,10 +1,10 @@
 'use strict';
 
-var shims = require('es6-map/implement');
 
-import {tagElementMap} from "./native_element";
 
 var AppRegistry = require('AppRegistry');
+var shims = require('es6-shim');
+import {tagElementMap} from "./native_element";
 var ReactNativeEventEmitter = require('ReactNativeEventEmitter');
 
 // required for angular:

@@ -299,20 +299,6 @@ export class ReactNativeElement {
 
 	_createIfNeeded() {
 		if (!this._created) {
-			//SCALE_IN_HACK
-			NativeModules.UIManager.configureNextLayoutAnimation({
-				duration: 1000,
-				create: {
-					duration: 500,
-					delay: 0,
-					property: "scaleXY",
-					type: "easeInEaseOut"
-				}
-			}, function() {
-				console.log("success", arguments);
-			}, function() {
-				console.log("failure", arguments);
-			});
 			NativeModules.UIManager.createView(this.tag, this.viewName, null, this.props);
 			for (var i = 0; i < this.children.length; i++) {
 				var node = this.children[i];

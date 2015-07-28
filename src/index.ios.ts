@@ -19,7 +19,7 @@ var NativeModules = require('NativeModules');
 @View({
 	template:
 	    "<TextField (topsubmitediting)='submit($event)' placeholder='new item' height=40 fontSize=30></TextField>" +
-		"<ScrollView automaticallyAdjustContentInsets=false flex=1 [scrollEnabled]='scrollEnabled'><View>" +
+		"<ScrollView automaticallyAdjustContentInsets=false flex=1 [scrollEnabled]='scrollEnabled'><View paddingBottom=600>" +
 		  "<View [transformMatrix]='item.transformMatrix' (topTouchStart)='handleStart($event, item)' (topTouchMove)='handleMove($event, item)' (topTouchEnd)='handleEnd($event, item)'  *ng-for='#item of items' flexDirection='row' [height]='item.height || 40' fontSize=20 alignItems='center'>" +
 		    "<switch (topchange)='handleSwitch(item)' width=61 height=31 paddingRight=10></switch>" +
 		    "<Text fontSize=20>{{item.label}}</Text>" +
@@ -63,18 +63,21 @@ class TodoAppComponent {
 		item.dxListIterator = 0;
 		item.dxListMaxLength = 5;
 		item.startedSwipe = false;
-		this.scrollEnabled = false;
 	}
 	handleMove(event, item) {
 		var prevX = item.prevEvent.pageX;
 		var curX = event.pageX;
 		var dx = curX - prevX;
 		if (!item.startedSwipe) {
-			if (Math.abs(dx) < 10) {
-				return;
-			} else {
+			var prevY = item.prevEvent.pageY;
+			var curY = event.pageY;
+			var dy = curX - prevY;
+			if (Math.abs(dx) - Math.abs(dy) > 10) {
+				this.scrollEnabled = false;
 				item.startedSwipe = true;
 				dx = 0;
+			} else {
+				return;
 			}
 		}
 		item.x = item.x + dx;

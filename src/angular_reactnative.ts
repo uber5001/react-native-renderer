@@ -10,11 +10,69 @@ var ReactNativeEventEmitter = require('ReactNativeEventEmitter');
 // required for angular:
 import { Parse5DomAdapter } from 'angular2/src/dom/parse5_adapter';
 import { setRootDomAdapter } from 'angular2/src/dom/dom_adapter';
+import { NgZone } from 'angular2/src/core/zone/ng_zone';
 require('traceur/bin/traceur-runtime.js');
 require('reflect-metadata/Reflect.js');
 
-require('./reactnative_zone')
+require('./reactnative_zone');
 
+var performanceNow = require('performanceNow');
+var ReactUpdates = require('ReactUpdates');
+var perfs = [{"name":"","time":performanceNow()}];
+var perfStack = [];
+var prevPerfsLength = 1;
+global.__perf = function(val) {
+	perfs.push({
+		name: val,
+		time: performanceNow()
+	});
+
+
+}
+function spaces(n, s = "|  ") {
+	var str = "";
+	if (!s) s = "|  "
+	for (var i = 0; i < n; i++) {
+		str += s;
+	}
+	return str;
+}
+// setInterval(function() {
+// 	// console.log(perfs);
+// 	var log = []
+// 	for (var i = 0; i < perfs.length - 1; i++) {
+// 		var current = perfs[i];
+// 		var next = perfs[i + 1];
+
+// 		if (next.name.match("\\(end")) {
+// 			log.push(spaces(perfStack.length - 1) + (next.time - current.time) + ":-" + (next.time - perfStack.pop().time) + "-:" + next.name)
+// 		} else {
+// 			log.push(spaces(perfStack.length) + (next.time - current.time) + ":" + next.name)
+// 		}
+
+// 		if (next.name.match("\\(start")) {
+// 			perfStack.push(next)
+// 		}
+// 	}
+// 	if (perfs.length > 1 && perfs.length - 4 <= prevPerfsLength) {
+// 		// console.log(log.length);
+// 		perfs = [perfs[perfs.length - 1]];
+// 	}
+// 	prevPerfsLength = perfs.length;
+// }, 10000);
+var prevNow = performanceNow();
+setInterval(function() {
+	console.log(
+		perfs.length
+		+ ":"
+		+ spaces(
+			(performanceNow() - prevNow) / 4,
+			"."
+		)
+	);
+	prevNow = performanceNow();
+	perfs = [];
+});
 // intentionlly overriding here because this is the easiest way to intercept events from React Native
 ReactNativeEventEmitter.receiveEvent = function(
 	tag: number,

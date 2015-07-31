@@ -48,6 +48,14 @@ class TodoAppComponent {
 		});
 		event.target.setProperty("text", "");
 		event.target.focus();
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
+		global.__perf("---------");
 	}
 	handleSwitch(item) {
 		this.collapseItem(item);
@@ -65,6 +73,7 @@ class TodoAppComponent {
 		item.startedSwipe = false;
 	}
 	handleMove(event, item) {
+		global.__perf("handleMove (start) ");
 		var prevX = item.prevEvent.pageX;
 		var curX = event.pageX;
 		var dx = curX - prevX;
@@ -77,6 +86,7 @@ class TodoAppComponent {
 				item.startedSwipe = true;
 				dx = 0;
 			} else {
+				global.__perf("handleMove (end) ");
 				return;
 			}
 		}
@@ -88,6 +98,7 @@ class TodoAppComponent {
 
 		this.drawItem(item);
 		item.prevEvent = event;
+		global.__perf("handleMove (end) ");
 	}
 	handleEnd(event, item) {
 		this.handleMove(event, item);
@@ -100,6 +111,7 @@ class TodoAppComponent {
 		var height = 40;
 		var self = this;
 		function animate() {
+			global.__perf("collapseItem:animate (start)");
 			//NOTE: velocity is based on change in X over change in frames,
 			//                       NOT change in X over change in time
 			// it should probably be changed to be base on time.
@@ -111,6 +123,7 @@ class TodoAppComponent {
 			} else {
 				requestAnimationFrame(animate);
 			}
+			global.__perf("collapseItem:animate (end)");
 		} animate();
 	}
 	//given item.x and the dx of last 5 frames, finish the animation, and remove the item if needed.
@@ -135,10 +148,14 @@ class TodoAppComponent {
 			destination = "center";
 		}
 		function animate() {
+			global.__perf("finishSwipe:animate (start)");
 			//NOTE: velocity is based on change in X over change in frames,
 			//                       NOT change in X over change in time
 			// it should probably be changed to be base on time.
-			if (!item.controlledByAnimation) return;
+			if (!item.controlledByAnimation) {
+				global.__perf("finishSwipe:animate (end)");
+				return;
+			}
 			if (destination === "center") {
 				velocity = (velocity*9 - item.x)/10;
 				velocity *= 0.8;
@@ -154,6 +171,7 @@ class TodoAppComponent {
 			} else if (Math.abs(item.x) > 0.1 || Math.abs(velocity) > 0.1) {
 				requestAnimationFrame(animate);
 			}
+			global.__perf("finishSwipe:animate (end)");
 		} animate();
 	}
 	drawItem(item) {

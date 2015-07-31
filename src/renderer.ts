@@ -11,46 +11,47 @@ export class ReactNativeRenderer extends Renderer {
 
 	constructor() {
 		super();
-		// console.log("constructor", arguments);
+		global.__perf("constructor");
 	}
 
 	createRootHostView(hostProtoViewRef: RenderProtoViewRef, fragmentCount: number,
 		hostElementSelector: string): RenderViewWithFragments {
-		// console.log("createRootHostView", arguments);
+		global.__perf("createRootHostView");
 		var hostProtoView = resolveInternalDomProtoView(hostProtoViewRef);
 		return this._createView(hostProtoView, true);
 	}
 	detachFreeHostView(parentHostViewRef: RenderViewWithFragments, hostViewRef: RenderViewWithFragments) {
-		// console.log("detachFreeHostView", arguments);
+		global.__perf("detachFreeHostView");
 	}
 
 	createView(protoViewRef: RenderProtoViewRef, fragmentCount: number): RenderViewWithFragments {
-		// console.log("createView", arguments);
+		global.__perf("createView");
 		var protoView = resolveInternalDomProtoView(protoViewRef);
 		return this._createView(protoView);
 	}
 
 	destroyView(viewRef: RenderViewRef) {
-		// console.log("destroyView", arguments);
+		global.__perf("destroyView");
 	}
 
 	attachFragmentAfterFragment(previousFragmentRef: RenderFragmentRef,
 		fragmentRef: RenderFragmentRef) {
-		// console.log("attachFragmentAfterFragment", arguments);
+
+		global.__perf("attachFragmentAfterFragment");
 		var previousFragmentNodes = resolveInternalReactNativeFragment(previousFragmentRef);
 		var sibling = previousFragmentNodes[previousFragmentNodes.length - 1];
 		moveNodesAfterSibling(sibling, resolveInternalReactNativeFragment(fragmentRef));
 	}
 
 	attachFragmentAfterElement(elementRef: RenderElementRef, fragmentRef: RenderFragmentRef) {
-		// console.log("attachFragmentAfterElement", arguments);
+		global.__perf("attachFragmentAfterElement");
 		var view = resolveInternalReactNativeView(elementRef.renderView);
 		var element = view.boundElements[elementRef.renderBoundElementIndex];
 		moveNodesAfterSibling(element, resolveInternalReactNativeFragment(fragmentRef));
 	}
 
 	detachFragment(fragmentRef: RenderFragmentRef) {
-		// console.log("detachFragment", arguments);
+		global.__perf("detachFragment");
 		var fragment = resolveInternalReactNativeFragment(fragmentRef);
 		for (var i = 0; i < fragment.length; i++) {
 			var element = fragment[i];
@@ -61,7 +62,7 @@ export class ReactNativeRenderer extends Renderer {
 	}
 
 	hydrateView(viewRef: RenderViewRef) {
-		// console.log("hydrateView", arguments);
+		global.__perf("hydrateView");
 		var view = resolveInternalReactNativeView(viewRef);
 		if (view.hydrated) throw 'The view is already hydrated.';
 		view.hydrated = true;
@@ -69,43 +70,46 @@ export class ReactNativeRenderer extends Renderer {
 	}
 
 	dehydrateView(viewRef: RenderViewRef) {
-		// console.log("dehydrateView", arguments);
+		global.__perf("dehydrateView");
 		var view = resolveInternalReactNativeView(viewRef);
 		view.hydrated = false;
 		//TODO: actually dehydrate anything.
 	}
 
 	getNativeElementSync(location: RenderElementRef): any {
-		// console.log("getNativeElementSync", arguments);
+		global.__perf("getNativeElementSync");
 		var view = resolveInternalReactNativeView(location.renderView);
 		return view.boundElements[location.renderBoundElementIndex];
 	}
 
 	setElementProperty(location: RenderElementRef, propertyName: string, propertyValue: any) {
-		// console.log("setElementProperty", arguments);
+		global.__perf("setElementProperty (start)");
 		var view = resolveInternalReactNativeView(location.renderView);
+		global.__perf("setElementProperty (A)");
 		var element = view.boundElements[location.renderBoundElementIndex];
+		global.__perf("setElementProperty (B)");
 		element.setProperty(propertyName, propertyValue);
+		global.__perf("setElementProperty (end)");
 	}
 
 	setElementAttribute(location: RenderElementRef, attributeName: string, attributeValue: string) {
-		console.log("setElementAttribute", arguments);
+		global.__perf("setElementAttribute");
 	}
 
 	setElementClass(location: RenderElementRef, className: string, isAdd: boolean) {
-		console.log("setElementClass", arguments);
+		global.__perf("setElementClass");
 	}
 
 	setElementStyle(location: RenderElementRef, styleName: string, styleValue: string) {
-		console.log("setElementStyle", arguments);
+		global.__perf("setElementStyle");
 	}
 
 	invokeElementMethod(location: RenderElementRef, methodName: string, args: List<any>) {
-		console.log("invokeElementMethod", arguments);
+		global.__perf("invokeElementMethod");
 	}
 
 	setText(viewRef: RenderViewRef, textNodeIndex: number, text: string) {
-		// console.log("setText", arguments);
+		global.__perf("setText");
 		// if (text === "FADE_OUT_HACK") {
 		// 	var view = resolveInternalReactNativeView(viewRef);
 		// 	var element = view.boundTextNodes[textNodeIndex].parent.parent;
@@ -136,13 +140,13 @@ export class ReactNativeRenderer extends Renderer {
 	}
 
 	setEventDispatcher(viewRef: RenderViewRef, dispatcher: RenderEventDispatcher) {
-		// console.log("setEventDispatcher", arguments);
+		global.__perf("setEventDispatcher");
 		var view = resolveInternalReactNativeView(viewRef);
 		view.eventDispatcher = dispatcher;
 	}
 	
 	_createView(proto: DomProtoView, isRoot = false): RenderViewWithFragments {
-		// console.log(proto);
+		global.__perf("_createView");
 		var nativeElements;
 		var boundElements = [];
 		if (proto.rootElement.tagName == "template") {
@@ -208,7 +212,7 @@ export class ReactNativeRenderer extends Renderer {
 			var locals = new Map<string, any>();
 			locals.set('$event', event);
 			view.eventDispatcher.dispatchRenderEvent(bindingIndex, name, locals);
-			// console.log("%cEvent dispatched: ", "color: #22dd22", name, locals);
+			global.__perf("%cEvent dispatched: ", "color: #22dd22", name);
 		}));
 	}
 

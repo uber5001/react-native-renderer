@@ -69,6 +69,9 @@ export function reactNativeBootstrap(component, bindings = []) {
 		bootstrap(component, [
 			ReactNativeRenderer,
 			bind(Renderer).toAlias(ReactNativeRenderer)
-		].concat(bindings))
+		].concat(bindings)).then(function(appRef) {
+			var zone = appRef._injector.get(NgZone)._innerZone;
+			require('ReactUpdates').batchedUpdates = zone.bind(require('ReactUpdates').batchedUpdates);
+		});
 	});
 }

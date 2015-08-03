@@ -241,7 +241,7 @@ export class ReactNativeElement {
 	props: any = {};
 	_created = false;
 	constructor(viewName: string, properties = {}) {
-		global.__perf(viewName)
+		// global.__perf(viewName)
 		var nativeViewName = RCT_VIEW_NAMES[viewName];
 		if (nativeViewName == undefined) {
 			// console.log("%cNode viewName invalid: " + viewName + ". defaulting to RCTView", "background: #FFFF00");
@@ -300,9 +300,9 @@ export class ReactNativeElement {
 
 	_createIfNeeded() {
 		if (!this._created) {
-			global.__perf("pre-create");
+			// global.__perf("pre-create");
 			NativeModules.UIManager.createView(this.tag, this.viewName, null, this.props);
-			global.__perf("post-create");
+			// global.__perf("post-create");
 			for (var i = 0; i < this.children.length; i++) {
 				var node = this.children[i];
 				node._createIfNeeded();

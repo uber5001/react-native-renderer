@@ -1,8 +1,27 @@
-import {reactNativeBootstrap} from './angular_reactnative'
-import {Component, View, Directive, NgFor} from 'angular2/angular2';
 
+import {reactNativeBootstrap} from './angular_reactnative'
+
+global.__perf("require angular2 (start)");
+	global.__perf("require angular2 Component (start)");
+	import {Component} from 'angular2/angular2';
+	global.__perf("require angular2 Component (end)");
+	global.__perf("require angular2 View (start)");
+	import {View} from 'angular2/angular2';
+	global.__perf("require angular2 View (end)");
+	global.__perf("require angular2 Directive (start)");
+	import {Directive} from 'angular2/angular2';
+	global.__perf("require angular2 Directive (end)");
+	global.__perf("require angular2 NgFor (start)");
+	import {NgFor} from 'angular2/angular2';
+	global.__perf("require angular2 NgFor (end)");
+global.__perf("require angular2 (end)");
+
+global.__perf("require precomputeStyle (start)");
 var precomputeStyle = require('precomputeStyle');
+global.__perf("require precomputeStyle (end)");
+global.__perf("require NativeModules (start)");
 var NativeModules = require('NativeModules');
+global.__perf("require NativeModules (end)");
 
 @Component({
 	selector: 'todo-app',
@@ -209,4 +228,6 @@ var parksToVisit = global.tmpParks = [
 ];
 
 
+global.__perf("reactNativeBootstrap (start)");
 reactNativeBootstrap(TodoAppComponent);
+global.__perf("reactNativeBootstrap (end)");
